@@ -1,0 +1,10 @@
+ext {
+    supportVersion = '25.3.0'
+    okhttpVersion = '3.4.1'
+    retrofitVersion = '2.1.0'
+    constraintVersion = '1.0.2'
+    guavaVersion = '20.0'
+    frescoVersion = '1.1.0'
+    junitVersion = '4.12'
+    espressoVersion = '2.2.2'
+}

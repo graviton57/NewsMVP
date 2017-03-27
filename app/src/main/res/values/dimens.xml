@@ -1,0 +1,5 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="list_icon_size">64dp</dimen>
+    <dimen name="list_item_extra_padding">0dp</dimen>
+</resources>

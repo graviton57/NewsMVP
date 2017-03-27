@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">News MVP</string>
+    <string name="something_went_wrong">Oops, something went wrong!</string>
+    <string name="empty_news_list">Oops, empty news list!</string>
+    <string name="error_load_data">Error while loading sources</string>
+    <string name="empty_list">Empty sources data</string>
+</resources>
