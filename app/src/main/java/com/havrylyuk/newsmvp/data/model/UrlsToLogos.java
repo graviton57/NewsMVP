@@ -18,8 +18,8 @@ public class UrlsToLogos {
     public UrlsToLogos() {
     }
 
-    public UrlsToLogos(String small) {
-        this.small = small;
+    public UrlsToLogos(String medium) {
+        this.medium = medium;
     }
 
     public String getSmall() {

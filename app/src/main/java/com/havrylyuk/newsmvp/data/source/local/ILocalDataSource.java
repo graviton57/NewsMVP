@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.havrylyuk.newsmvp.data.model.Article;
 import com.havrylyuk.newsmvp.data.model.Source;
+import com.havrylyuk.newsmvp.data.source.IDataSource;
 
 import java.util.List;
 
@@ -11,37 +12,33 @@ import java.util.List;
  * Created by Igor Havrylyuk on 27.03.2017.
  */
 
-public interface ILocalDataSource {
+public interface ILocalDataSource extends IDataSource {
 
+    void getSource(@NonNull String sourceId, @NonNull LoadDataCallback<Source> callback);
 
-    interface GetDataCallback<T> {
+    void getAllSources(@NonNull LoadDataCallback<Source> callback);
 
-        void onDateLoaded(T entity);
+    void refreshSource(@NonNull Source source);
 
-        void onDataNotAvailable();
-    }
+    void saveSource(@NonNull Source source);
 
-    void getSource(@NonNull String sourceId, @NonNull GetDataCallback<Source> callback);
-
-    void getAllSources();
-
-    void saveSource(Source source);
-
-    void saveSources(List<Source> source);
+    void saveSources(@NonNull List<Source> source);
 
     void deleteAllSources();
 
     void deleteSource(@NonNull String sourceId);
 
-    void getArticles(@NonNull String sourceId, @NonNull GetDataCallback<Article> callback);
+    void getArticles(@NonNull String sourceId, @NonNull LoadDataCallback<Article> callback);
 
     void getAllArticles();
 
-    void saveArticles(Article article);
+    void refreshArticle(@NonNull String sourceId, @NonNull Article article);
 
-    void saveArticles(List<Article> articles);
+    void saveArticles(@NonNull String sourceId, @NonNull Article article);
+
+    void saveArticles(@NonNull String sourceId, @NonNull List<Article> articles);
 
     void deleteAllArticles();
 
-    void deleteArticle(@NonNull String articleId);
+    void deleteArticles(@NonNull String sourceId);
 }

@@ -14,6 +14,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
+ *
  * Created by Igor Havrylyuk on 27.03.2017.
  */
 

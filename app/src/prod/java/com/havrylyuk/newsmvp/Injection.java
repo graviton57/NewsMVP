@@ -18,6 +18,6 @@ public class Injection {
         checkNotNull(context);
         ApiService apiService = ApiClient.getClient().create(ApiService.class);
         return Repository.getInstance(RemoteDataSource.getInstance(apiService),
-                LocalDataSource.getInstance(context));
+                LocalDataSource.getInstance(context.getContentResolver()));
     }
 }

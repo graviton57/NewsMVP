@@ -35,10 +35,7 @@ public class NewsPresenter implements NewsContract.Presenter {
 
     private void loadNewsFromRepository(String source, boolean isNetworkAvailable ) {
         view.setRefreshing(true);
-        // The network request might be handled in a different thread so make sure Espresso knows
-        // that the app is busy until the response is handled.
-        // EspressoIdlingResource.increment(); // App is busy until further notice
-            repository.getArticles(source, new IRemoteDataSource.LoadDataCallback<Article>() {
+        repository.getArticles(source, new IRemoteDataSource.LoadDataCallback<Article>() {
                 @Override
                 public void onDataLoaded(List<Article> list) {
                     if (list.isEmpty()) {

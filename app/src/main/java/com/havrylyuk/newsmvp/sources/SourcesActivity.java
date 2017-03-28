@@ -92,11 +92,13 @@ public class SourcesActivity extends AppCompatActivity implements SourcesContrac
 
     @Override
     public void showLoadingSourcesError() {
+        setRefreshing(false);
         Toast.makeText(this, R.string.error_load_data,Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showNoSourcesData() {
+        setRefreshing(false);
         Toast.makeText(this, R.string.empty_list,Toast.LENGTH_SHORT).show();
     }
 

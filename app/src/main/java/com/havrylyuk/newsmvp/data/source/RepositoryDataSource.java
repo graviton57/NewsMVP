@@ -1,36 +1,29 @@
 package com.havrylyuk.newsmvp.data.source;
 
+import android.support.annotation.NonNull;
+
 import com.havrylyuk.newsmvp.data.model.Article;
 import com.havrylyuk.newsmvp.data.model.Source;
-import com.havrylyuk.newsmvp.data.source.remote.RemoteDataSource;
 
 import java.util.List;
 
 /**
- * Created by Igor Havrylyuk on 27.03.2017.
+ *
+ * Created by Igor Havrylyuk on 28.03.2017.
  */
 
 public interface RepositoryDataSource {
 
 
-    void getArticles(String source, RemoteDataSource.LoadDataCallback<Article> callback,  boolean isNetworkAvailable);
+    void getArticles(String source, IDataSource.LoadDataCallback<Article> callback, boolean isNetworkAvailable);
 
-    void getAllArticles(RemoteDataSource.LoadDataCallback<Article> callback, boolean isNetworkAvailable);
-
-    void saveArticles(List<Article> articles);
-
-    void saveArticles(String source, List<Article> articles);
+    void saveArticles(@NonNull List<Article> articles);
 
     void deleteAllArticles();
 
-    void deleteArticles(String sourceId);
+    void getSources(@NonNull IDataSource.LoadDataCallback<Source> callback, boolean isNetworkAvailable);
 
-
-    void getSources(RemoteDataSource.LoadDataCallback<Source> callback, boolean isNetworkAvailable);
-
-    void saveSources(List<Source> sources);
-
-    void saveSource(Source source);
+    void saveSources(@NonNull List<Source> sources);
 
     void deleteAllSources();
 

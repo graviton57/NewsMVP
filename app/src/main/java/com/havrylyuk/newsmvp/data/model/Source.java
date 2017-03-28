@@ -28,6 +28,13 @@ public class Source {
     public Source() {
     }
 
+    public Source(String id, String name, String description, UrlsToLogos urlsToLogos) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.urlsToLogos = urlsToLogos;
+    }
+
     public Source(String id, String name, UrlsToLogos urlsToLogos) {
         this.id = id;
         this.name = name;

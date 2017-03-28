@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.havrylyuk.newsmvp.data.model.Article;
 import com.havrylyuk.newsmvp.data.model.Source;
+import com.havrylyuk.newsmvp.data.source.IDataSource;
 import com.havrylyuk.newsmvp.data.source.RepositoryDataSource;
 
 import java.util.List;
@@ -12,14 +13,7 @@ import java.util.List;
  * Created by Igor Havrylyuk on 27.03.2017.
  */
 
-public interface IRemoteDataSource {
-
-    interface  LoadDataCallback<T> {
-
-        void onDataLoaded(List<T> list);
-
-        void onDataNotAvailable();
-    }
+public interface IRemoteDataSource extends IDataSource {
 
     void getSources(@NonNull  LoadDataCallback<Source> callback);
 

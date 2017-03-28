@@ -1,15 +1,15 @@
 package com.havrylyuk.newsmvp.data.model;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-import java.text.SimpleDateFormat;
-import java.util.Locale;
 
 /**
  * Created by Igor Havrylyuk on 27.03.2017.
  */
 public class Article {
 
+    @Expose
+    private String sourceId;
     @SerializedName("author")
     private String author;
     @SerializedName("urlToImage")
@@ -26,12 +26,21 @@ public class Article {
     public Article() {
     }
 
-    public Article(String title, String decr , String imageUrl, String author, String url) {
-        this.title=title;
-        this.decr=decr;
-        this.imageUrl=imageUrl;
-        this.url=url;
-        this.author=author;
+    public Article( String author, String imageUrl, String title, String decr, String url, String publishedAt) {
+        this.author = author;
+        this.imageUrl = imageUrl;
+        this.title = title;
+        this.decr = decr;
+        this.url = url;
+        this.publishedAt = publishedAt;
+    }
+
+    public String getSourceId() {
+        return sourceId;
+    }
+
+    public void setSourceId(String sourceId) {
+        this.sourceId = sourceId;
     }
 
     public String getAuthor() {
@@ -83,7 +92,7 @@ public class Article {
     }
 
     /*{
-        "author": "Rachel Kaser",
+            "author": "Rachel Kaser",
             "title": "Kim Kardashian’s new bot wants to solve puzzles with you",
             "description": "If you’ve ever wanted to  …",
             "url": "https://thenextweb.com/apps/2017/03/23/kim-kardashians-new-bot-wants-solve-puzzles/",

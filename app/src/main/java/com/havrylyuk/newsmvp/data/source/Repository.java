@@ -4,7 +4,6 @@ import android.support.annotation.NonNull;
 
 import com.havrylyuk.newsmvp.data.model.Article;
 import com.havrylyuk.newsmvp.data.model.Source;
-import com.havrylyuk.newsmvp.data.source.local.ILocalDataSource;
 import com.havrylyuk.newsmvp.data.source.local.LocalDataSource;
 import com.havrylyuk.newsmvp.data.source.remote.IRemoteDataSource;
 import com.havrylyuk.newsmvp.data.source.remote.RemoteDataSource;
@@ -46,38 +45,23 @@ public class Repository implements RepositoryDataSource {
     }
 
     @Override
-    public void getArticles(String source,
-                            RemoteDataSource.LoadDataCallback<Article> callback,
+    public void getArticles(String sourceID,
+                            IDataSource.LoadDataCallback<Article> callback,
                             boolean isNetworkAvailable) {
 
         checkNotNull(callback);
         if (isNetworkAvailable){
-            getArticlesFromRemoteDataSource(source, callback);
+            getArticlesFromRemoteDataSource(sourceID, callback);
         } else {
-            getArticlesFromLocalDataSource(source, callback);
+            getArticlesFromLocalDataSource(sourceID, callback);
         }
     }
 
     @Override
-    public void getAllArticles(RemoteDataSource.LoadDataCallback<Article> callback,
-                               boolean isNetworkAvailable) {
+    public void saveArticles(@NonNull List<Article> articles) {
 
     }
 
-    @Override
-    public void saveArticles(List<Article> articles) {
-
-    }
-
-    @Override
-    public void saveArticles(String source, List<Article> articles) {
-
-    }
-
-    @Override
-    public void deleteArticles(String sourceId) {
-
-    }
 
     @Override
     public void deleteAllArticles() {
@@ -85,7 +69,7 @@ public class Repository implements RepositoryDataSource {
     }
 
     @Override
-    public void getSources(RemoteDataSource.LoadDataCallback<Source> callback,
+    public void getSources(@NonNull IDataSource.LoadDataCallback<Source> callback,
                            boolean isNetworkAvailable) {
         checkNotNull(callback);
         if (isNetworkAvailable){
@@ -95,17 +79,11 @@ public class Repository implements RepositoryDataSource {
         }
     }
 
-
-
     @Override
-    public void saveSources(List<Source> sources) {
+    public void saveSources(@NonNull List<Source> sources) {
         localDataSource.saveSources(sources);
     }
 
-    @Override
-    public void saveSource(Source source) {
-        localDataSource.saveSource(source);
-    }
 
     @Override
     public void deleteAllSources() {
@@ -113,26 +91,18 @@ public class Repository implements RepositoryDataSource {
     }
 
     private void getArticlesFromLocalDataSource(String sourceId,
-                                                final IRemoteDataSource.LoadDataCallback<Article> callback) {
-        localDataSource.getArticles(sourceId, new ILocalDataSource.GetDataCallback<Article>() {
-            @Override
-            public void onDateLoaded(Article entity) {
+                                                final IDataSource.LoadDataCallback<Article> callback) {
+        checkNotNull(callback);
+        localDataSource.getArticles(sourceId, callback);
 
-            }
-
-            @Override
-            public void onDataNotAvailable() {
-
-            }
-        });
     }
 
-    private void getArticlesFromRemoteDataSource(String sourceId,
-                                                 final IRemoteDataSource.LoadDataCallback<Article> callback) {
-        remoteDataSource.getArticles(sourceId, new IRemoteDataSource.LoadDataCallback<Article>() {
+    private void getArticlesFromRemoteDataSource(final String sourceId,
+                                                 final IDataSource.LoadDataCallback<Article> callback) {
+        remoteDataSource.getArticles(sourceId, new IDataSource.LoadDataCallback<Article>() {
             @Override
             public void onDataLoaded(List<Article> articles) {
-                refreshArticleLocalDataSource(articles);
+                refreshArticleLocalDataSource(sourceId, articles);
                 callback.onDataLoaded(new ArrayList<>(articles));
             }
 
@@ -143,9 +113,9 @@ public class Repository implements RepositoryDataSource {
         });
     }
 
-
-    private void getSourcesFromLocalDataSource(@NonNull final IRemoteDataSource.LoadDataCallback<Source> callback) {
-        localDataSource.getAllSources();
+    private void getSourcesFromLocalDataSource(@NonNull final IDataSource.LoadDataCallback<Source> callback) {
+        checkNotNull(callback);
+        localDataSource.getAllSources(callback);
     }
 
     private void getSourcesFromRemoteDataSource(@NonNull final IRemoteDataSource.LoadDataCallback<Source> callback) {
@@ -168,8 +138,8 @@ public class Repository implements RepositoryDataSource {
         localDataSource.saveSources(sources);
     }
 
-    private void refreshArticleLocalDataSource(List<Article> articles) {
+    private void refreshArticleLocalDataSource(String sourceId, List<Article> articles) {
         localDataSource.deleteAllArticles();
-        localDataSource.saveArticles(articles);
+        localDataSource.saveArticles(sourceId, articles);
     }
 }

@@ -2,6 +2,7 @@ package com.havrylyuk.newsmvp.news;
 
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,7 +78,9 @@ public class NewsRecyclerViewAdapter extends RecyclerView.Adapter<NewsRecyclerVi
             e.printStackTrace();
         }
         String imageUrl = articleList.get(position).getImageUrl();
-        holder.newsImage.setImageURI(Uri.parse(imageUrl));
+        if (!TextUtils.isEmpty(imageUrl)){
+            holder.newsImage.setImageURI(Uri.parse(imageUrl));
+        }
     }
 
     @Override
