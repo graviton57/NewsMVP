@@ -54,13 +54,11 @@ public class SourcesActivity extends AppCompatActivity implements SourcesContrac
                 Injection.provideRepository(getApplicationContext()),this);
     }
 
-
     @Override
     public void showSources(@NonNull List<Source> sources) {
         if (adapter!=null){
             adapter.setSourceList(sources);
         }
-
     }
 
     @Override
@@ -68,7 +66,6 @@ public class SourcesActivity extends AppCompatActivity implements SourcesContrac
         if (swipeRefreshLayout == null) {
             return;
         }
-       // Make sure setRefreshing() is called after the layout is done with everything else.
         swipeRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
@@ -93,13 +90,13 @@ public class SourcesActivity extends AppCompatActivity implements SourcesContrac
     @Override
     public void showLoadingSourcesError() {
         setRefreshing(false);
-        Toast.makeText(this, R.string.error_load_data,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.error_load_data, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showNoSourcesData() {
         setRefreshing(false);
-        Toast.makeText(this, R.string.empty_list,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.empty_list, Toast.LENGTH_SHORT).show();
     }
 
     private void initToolbar() {
@@ -119,13 +116,13 @@ public class SourcesActivity extends AppCompatActivity implements SourcesContrac
         adapter = new SourcesRecyclerViewAdapter(new SourcesRecyclerViewAdapter.ItemClickListener() {
             @Override
             public void onItemClick(Source source) {
-                showNewsForSource(source.getId());
+                showNewsActivity(source.getId());
             }
         }, new ArrayList<Source>());
         recyclerView.setAdapter(adapter);
     }
 
-    private void showNewsForSource(String sourceId){
+    private void showNewsActivity(String sourceId){
         Intent intent = new Intent(this, NewsActivity.class);
         intent.putExtra(NewsActivity.EXTRA_SOURCE_ID, sourceId);
         startActivity(intent);

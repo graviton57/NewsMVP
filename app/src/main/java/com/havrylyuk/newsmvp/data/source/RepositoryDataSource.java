@@ -14,14 +14,16 @@ import java.util.List;
 
 public interface RepositoryDataSource {
 
-
-    void getArticles(String source, IDataSource.LoadDataCallback<Article> callback, boolean isNetworkAvailable);
+    void getArticles(String source,
+                     IDataSource.LoadDataCallback<Article> callback,
+                     boolean isNetworkAvailable);
 
     void saveArticles(@NonNull List<Article> articles);
 
     void deleteAllArticles();
 
-    void getSources(@NonNull IDataSource.LoadDataCallback<Source> callback, boolean isNetworkAvailable);
+    void getSources(@NonNull IDataSource.LoadDataCallback<Source> callback,
+                    boolean isNetworkAvailable);
 
     void saveSources(@NonNull List<Source> sources);
 

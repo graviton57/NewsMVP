@@ -18,7 +18,8 @@ import java.util.List;
  * Created by Igor Havrylyuk on 27.03.2017.
  */
 
-public class SourcesRecyclerViewAdapter extends RecyclerView.Adapter<SourcesRecyclerViewAdapter.ItemHolder> {
+public class SourcesRecyclerViewAdapter extends
+        RecyclerView.Adapter<SourcesRecyclerViewAdapter.ItemHolder> {
 
     public interface ItemClickListener {
         void onItemClick(Source source);
@@ -35,11 +36,6 @@ public class SourcesRecyclerViewAdapter extends RecyclerView.Adapter<SourcesRecy
 
     public void setSourceList(List<Source> sourceList) {
         this.sourceList = sourceList;
-        notifyDataSetChanged();
-    }
-
-    public void addSources(List<Source> sourceList) {
-        this.sourceList.addAll(sourceList);
         notifyDataSetChanged();
     }
 
@@ -66,9 +62,11 @@ public class SourcesRecyclerViewAdapter extends RecyclerView.Adapter<SourcesRecy
         holder.description.setText(description);
         String imageUrl = sourceList.get(position).getUrlsToLogos().getMedium();
         if (!TextUtils.isEmpty(imageUrl)){
+            if (!imageUrl.toLowerCase().startsWith("http")){
+                imageUrl = "http:" + imageUrl;
+            }
             holder.newsImage.setImageURI(Uri.parse(imageUrl));
         }
-
     }
 
     @Override

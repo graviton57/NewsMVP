@@ -14,7 +14,8 @@ import java.util.List;
 
 public interface ILocalDataSource extends IDataSource {
 
-    void getSource(@NonNull String sourceId, @NonNull LoadDataCallback<Source> callback);
+    void getSource(@NonNull String sourceId,
+                   @NonNull LoadDataCallback<Source> callback);
 
     void getAllSources(@NonNull LoadDataCallback<Source> callback);
 
@@ -28,7 +29,8 @@ public interface ILocalDataSource extends IDataSource {
 
     void deleteSource(@NonNull String sourceId);
 
-    void getArticles(@NonNull String sourceId, @NonNull LoadDataCallback<Article> callback);
+    void getArticles(@NonNull String sourceId,
+                     @NonNull LoadDataCallback<Article> callback);
 
     void getAllArticles();
 

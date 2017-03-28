@@ -17,8 +17,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public class SourcesPresenter implements SourcesContract.Presenter {
 
-    private static final String LOG_TAG = SourcesPresenter.class.getSimpleName();
-
     private SourcesContract.View view;
     private RepositoryDataSource repository;
 
@@ -35,9 +33,6 @@ public class SourcesPresenter implements SourcesContract.Presenter {
 
     private void loadSourcesFromRepository(boolean isNetworkAvailable ) {
         view.setRefreshing(true);
-        // The network request might be handled in a different thread so make sure Espresso knows
-        // that the app is busy until the response is handled.
-       // EspressoIdlingResource.increment(); // App is busy until further notice
             repository.getSources(new IRemoteDataSource.LoadDataCallback<Source>() {
                 @Override
                 public void onDataLoaded(List<Source> list) {

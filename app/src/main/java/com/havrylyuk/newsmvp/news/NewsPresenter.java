@@ -1,7 +1,6 @@
 package com.havrylyuk.newsmvp.news;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.havrylyuk.newsmvp.data.model.Article;
 import com.havrylyuk.newsmvp.data.source.RepositoryDataSource;
@@ -16,8 +15,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 
 public class NewsPresenter implements NewsContract.Presenter {
-
-    private static final String LOG_TAG = NewsPresenter.class.getSimpleName();
 
     private NewsContract.View view;
     private RepositoryDataSource repository;

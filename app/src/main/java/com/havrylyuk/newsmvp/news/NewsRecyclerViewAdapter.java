@@ -40,11 +40,6 @@ public class NewsRecyclerViewAdapter extends RecyclerView.Adapter<NewsRecyclerVi
         notifyDataSetChanged();
     }
 
-    public void setArticleList(List<Article> articleList) {
-        this.articleList = articleList;
-        notifyDataSetChanged();
-    }
-
     public void addArticles(List<Article> articleList) {
         this.articleList.addAll(articleList);
         notifyDataSetChanged();
@@ -79,6 +74,9 @@ public class NewsRecyclerViewAdapter extends RecyclerView.Adapter<NewsRecyclerVi
         }
         String imageUrl = articleList.get(position).getImageUrl();
         if (!TextUtils.isEmpty(imageUrl)){
+            if (!imageUrl.toLowerCase().startsWith("http")){
+                imageUrl = "http:" + imageUrl;
+            }
             holder.newsImage.setImageURI(Uri.parse(imageUrl));
         }
     }

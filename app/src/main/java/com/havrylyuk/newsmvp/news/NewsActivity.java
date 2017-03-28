@@ -5,24 +5,19 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.havrylyuk.newsmvp.Injection;
 import com.havrylyuk.newsmvp.R;
 import com.havrylyuk.newsmvp.data.model.Article;
-import com.havrylyuk.newsmvp.data.model.Source;
-import com.havrylyuk.newsmvp.sources.SourcesActivity;
-import com.havrylyuk.newsmvp.sources.SourcesPresenter;
-import com.havrylyuk.newsmvp.sources.SourcesRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +28,8 @@ import java.util.List;
 
 public class NewsActivity extends AppCompatActivity implements NewsContract.View {
 
-    public static final String EXTRA_SOURCE_ID = "EXTRA_SOURCE_ID";
+    public static final String EXTRA_SOURCE_ID = "com.havrylyuk.newsmvp.EXTRA_SOURCE_ID";
+
     private NewsContract.Presenter presenter;
     private NewsRecyclerViewAdapter adapter;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -44,7 +40,6 @@ public class NewsActivity extends AppCompatActivity implements NewsContract.View
         super.onCreate(savedInstanceState);
         if (getIntent()!=null){
             sourceId = getIntent().getStringExtra(EXTRA_SOURCE_ID);
-            Log.d("NewsActivity", "sourceId=" + sourceId);
         }
         setContentView(R.layout.activity_content);
         initToolbar();
@@ -77,7 +72,6 @@ public class NewsActivity extends AppCompatActivity implements NewsContract.View
         if (swipeRefreshLayout == null) {
             return;
         }
-        // Make sure setRefreshing() is called after the layout is done with everything else.
         swipeRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
@@ -102,13 +96,13 @@ public class NewsActivity extends AppCompatActivity implements NewsContract.View
     @Override
     public void showLoadingSourcesError() {
         setRefreshing(false);
-        Toast.makeText(this, R.string.error_load_data,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.error_load_data, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showNoSourcesData() {
         setRefreshing(false);
-        Toast.makeText(this, R.string.empty_list,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.empty_list, Toast.LENGTH_SHORT).show();
     }
 
     private void initToolbar() {
@@ -128,13 +122,13 @@ public class NewsActivity extends AppCompatActivity implements NewsContract.View
         adapter = new NewsRecyclerViewAdapter(new NewsRecyclerViewAdapter.ItemClickListener() {
             @Override
             public void onItemClick(Article article) {
-                showNews(article.getUrl());
+                showNewsInWebBrowser(article.getUrl());
             }
         }, new ArrayList<Article>());
         recyclerView.setAdapter(adapter);
     }
 
-    private void showNews(String url){
+    private void showNewsInWebBrowser(String url){
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(url));
         startActivity(i);

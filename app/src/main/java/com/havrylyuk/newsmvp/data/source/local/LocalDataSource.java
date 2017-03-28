@@ -4,6 +4,7 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.support.annotation.NonNull;
+
 import com.havrylyuk.newsmvp.data.model.Article;
 import com.havrylyuk.newsmvp.data.model.Source;
 
@@ -42,9 +43,7 @@ public class LocalDataSource implements ILocalDataSource {
         return INSTANCE;
     }
 
-    @Override
     public void getSource(@NonNull String sourceId, @NonNull LoadDataCallback callback) {
-        // no-op since
     }
 
     @Override
@@ -141,9 +140,7 @@ public class LocalDataSource implements ILocalDataSource {
         }
     }
 
-    @Override
     public void getAllArticles() {
-        // no-op since
     }
 
     @Override

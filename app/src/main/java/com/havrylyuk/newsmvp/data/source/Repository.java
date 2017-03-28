@@ -26,16 +26,16 @@ public class Repository implements RepositoryDataSource {
 
 
     public static Repository getInstance(RemoteDataSource remoteDataSource,
-                                              LocalDataSource localDataSource) {
+                                         LocalDataSource localDataSource) {
         if (INSTANCE == null) {
             INSTANCE = new Repository(remoteDataSource, localDataSource);
         }
         return INSTANCE;
     }
 
-    // Prevent direct instantiation.
     private Repository(@NonNull RemoteDataSource remoteDataSource,
-                            @NonNull LocalDataSource localDataSource) {
+                       @NonNull LocalDataSource localDataSource) {
+
         this.remoteDataSource = checkNotNull(remoteDataSource);
         this.localDataSource = checkNotNull(localDataSource);
     }
@@ -57,15 +57,10 @@ public class Repository implements RepositoryDataSource {
         }
     }
 
-    @Override
     public void saveArticles(@NonNull List<Article> articles) {
-
     }
 
-
-    @Override
     public void deleteAllArticles() {
-
     }
 
     @Override
@@ -99,6 +94,7 @@ public class Repository implements RepositoryDataSource {
 
     private void getArticlesFromRemoteDataSource(final String sourceId,
                                                  final IDataSource.LoadDataCallback<Article> callback) {
+
         remoteDataSource.getArticles(sourceId, new IDataSource.LoadDataCallback<Article>() {
             @Override
             public void onDataLoaded(List<Article> articles) {
@@ -113,12 +109,16 @@ public class Repository implements RepositoryDataSource {
         });
     }
 
-    private void getSourcesFromLocalDataSource(@NonNull final IDataSource.LoadDataCallback<Source> callback) {
+    private void getSourcesFromLocalDataSource(
+              @NonNull final IDataSource.LoadDataCallback<Source> callback) {
+
         checkNotNull(callback);
         localDataSource.getAllSources(callback);
     }
 
-    private void getSourcesFromRemoteDataSource(@NonNull final IRemoteDataSource.LoadDataCallback<Source> callback) {
+    private void getSourcesFromRemoteDataSource(
+                 @NonNull final IRemoteDataSource.LoadDataCallback<Source> callback) {
+
         remoteDataSource.getSources(new IRemoteDataSource.LoadDataCallback<Source>() {
             @Override
             public void onDataLoaded(List<Source> sources) {
